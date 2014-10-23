@@ -21,6 +21,7 @@ qstrip=$(strip $(subst ",,$(1)))
 
 empty:=
 space:= $(empty) $(empty)
+comma:=,
 merge=$(subst $(space),,$(1))
 confvar=$(call merge,$(foreach v,$(1),$(if $($(v)),y,n)))
 strip_last=$(patsubst %.$(lastword $(subst .,$(space),$(1))),%,$(1))
@@ -277,8 +278,7 @@ V_$(subst .,_,$(subst -,_,$(subst /,_,$(1))))
 endef
 
 define shexport
-$(call shvar,$(1))=$$(call $(1))
-export $(call shvar,$(1))
+export $(call shvar,$(1))=$$(call $(1))
 endef
 
 define include_mk
