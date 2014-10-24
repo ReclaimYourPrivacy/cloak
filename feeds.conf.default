@@ -3,7 +3,6 @@ src-git luci https://github.com/ReclaimYourPrivacy/cloak-luci.git
 src-git routing https://github.com/ReclaimYourPrivacy/cloak-routing.git
 src-git management https://github.com/ReclaimYourPrivacy/cloak-management.git
 src-git cloak https://github.com/ReclaimYourPrivacy/cloak-cloak.git
-#src-git telephony http://github.com/ReclaimYourPrivacy/cloak-telephony.git
 #src-git oldpackages http://git.openwrt.org/packages.git
 #src-svn xwrt http://x-wrt.googlecode.com/svn/trunk/package
 #src-svn phone svn://svn.openwrt.org/openwrt/feeds/phone
