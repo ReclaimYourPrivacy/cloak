@@ -18,11 +18,9 @@ endef
 VMLINUX:=$(IMG_PREFIX)-vmlinux
 UIMAGE:=$(IMG_PREFIX)-uImage
 
-ifeq ($(CONFIG_TARGET_ROOTFS_INITRAMFS),y)
 define Image/Build/Initramfs
 	$(call Image/Build/Profile/$(PROFILE),initramfs)
 endef
-endif
 
 ifeq ($(CONFIG_SOC_RT288X),y)
 define kernel_entry
@@ -772,6 +770,7 @@ endif
 # MT7620A Profiles
 #
 
+Image/Build/Profile/E1700=$(call BuildFirmware/UMedia/$(1),$(1),e1700,E1700,0x013326)
 Image/Build/Profile/MT7620a=$(call BuildFirmware/Default8M/$(1),$(1),mt7620a,MT7620a)
 Image/Build/Profile/MT7620a_MT7610e=$(call BuildFirmware/Default8M/$(1),$(1),mt7620a_mt7610e,MT7620a_MT7610e)
 Image/Build/Profile/MT7620a_MT7530=$(call BuildFirmware/Default8M/$(1),$(1),mt7620a_mt7530,MT7620a_MT7530)
@@ -792,6 +791,7 @@ Image/Build/Profile/Y1S=$(call BuildFirmware/Default16M/$(1),$(1),Lenovo-y1s,Y1S
 
 ifeq ($(SUBTARGET),mt7620a)
 define Image/Build/Profile/Default
+	$(call Image/Build/Profile/E1700,$(1))
 	$(call Image/Build/Profile/MT7620a,$(1))
 	$(call Image/Build/Profile/MT7620a_MT7610e,$(1))
 	$(call Image/Build/Profile/MT7620a_MT7530,$(1))
@@ -846,6 +846,18 @@ define Image/Build/Profile/Default
 endef
 endif
 
+#
+# MT7628 Profiles
+#
+
+Image/Build/Profile/MT7628=$(call BuildFirmware/Default4M/$(1),$(1),mt7628,MT7628)
+
+ifeq ($(SUBTARGET),mt7628)
+define Image/Build/Profile/Default
+	$(call Image/Build/Profile/MT7628,$(1))
+endef
+endif
+
 
 #
 # Generic Targets
@@ -856,13 +868,14 @@ define Image/BuildKernel
 	$(call CompressLzma,$(KDIR)/vmlinux,$(KDIR)/vmlinux.bin.lzma)
 	$(call MkImage,lzma,$(KDIR)/vmlinux.bin.lzma,$(KDIR)/uImage.lzma)
 	cp $(KDIR)/uImage.lzma $(BIN_DIR)/$(UIMAGE).bin
-ifneq ($(CONFIG_TARGET_ROOTFS_INITRAMFS),)
+endef
+
+define Image/BuildKernel/Initramfs
 	cp $(KDIR)/vmlinux-initramfs.elf $(BIN_DIR)/$(VMLINUX)-initramfs.elf
 	cp $(KDIR)/vmlinux-initramfs $(BIN_DIR)/$(VMLINUX)-initramfs.bin
 	$(call CompressLzma,$(KDIR)/vmlinux-initramfs,$(KDIR)/vmlinux-initramfs.bin.lzma)
 	$(call MkImage,lzma,$(KDIR)/vmlinux-initramfs.bin.lzma,$(KDIR)/uImage-initramfs.lzma)
 	cp $(KDIR)/uImage-initramfs.lzma $(BIN_DIR)/$(UIMAGE)-initramfs.bin
-endif
 	$(call Image/Build/Initramfs)
 endef
 
