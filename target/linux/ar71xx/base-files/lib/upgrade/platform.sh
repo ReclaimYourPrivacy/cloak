@@ -1,5 +1,6 @@
 #
 # Copyright (C) 2011 OpenWrt.org
+# Copyright 2014 Bright Things UN Ltd.
 #
 
 . /lib/functions/system.sh
