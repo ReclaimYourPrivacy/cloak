@@ -1,6 +1,7 @@
 #!/bin/sh
 #
 # Copyright (C) 2009-2011 OpenWrt.org
+# Copyright 2014 Bright Things UN Ltd.
 #
 
 AR71XX_BOARD_NAME=

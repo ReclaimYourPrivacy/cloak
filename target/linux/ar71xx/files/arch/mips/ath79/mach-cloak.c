@@ -4,6 +4,7 @@
  *  Copyright (C) 2011-2012 Gabor Juhos <juhosg@openwrt.org>
  *  Copyright (C) 2012 Elektra Wagenrad <elektra@villagetelco.org>
  *  Copyright (C) 2014 Vittorio Gambaletta <openwrt@vittgam.net>
+ *  Copyright (C) 2014 Bright Things UN Ltd.
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU General Public License version 2 as published

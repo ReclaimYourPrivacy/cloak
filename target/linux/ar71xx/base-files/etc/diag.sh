@@ -1,5 +1,6 @@
 #!/bin/sh
 # Copyright (C) 2009-2013 OpenWrt.org
+# Copyright 2014 Bright Things UN Ltd.
 
 . /lib/functions/leds.sh
 . /lib/ar71xx.sh
