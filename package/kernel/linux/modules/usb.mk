@@ -467,6 +467,23 @@ endef
 $(eval $(call KernelPackage,usb-dwc2))
 
 
+define KernelPackage/usb2-oxnas
+  TITLE:=OXNAS USB controller driver
+  DEPENDS:=@TARGET_oxnas +kmod-usb2
+  KCONFIG:=CONFIG_USB_EHCI_OXNAS
+  FILES:=$(LINUX_DIR)/drivers/usb/host/ehci-oxnas.ko
+  AUTOLOAD:=$(call AutoLoad,55,ehci-oxnas,1)
+  $(call AddDepends/usb)
+endef
+
+define KernelPackage/usb2-oxnas/description
+ This driver provides USB Device Controller support for the
+ EHCI USB host built-in to the PLXTECH NAS782x SoC
+endef
+
+$(eval $(call KernelPackage,usb2-oxnas))
+
+
 define KernelPackage/usb-acm
   TITLE:=Support for modems/isdn controllers
   KCONFIG:=CONFIG_USB_ACM
@@ -1384,9 +1401,9 @@ endef
 $(eval $(call KernelPackage,usbip-server))
 
 
-define KernelPackage/usb-chipidea
+define KernelPackage/usb-chipidea-imx
   TITLE:=Support for ChipIdea controllers
-  DEPENDS:=+kmod-usb2 +USB_GADGET_SUPPORT:kmod-usb-gadget
+  DEPENDS:=@TARGET_imx6||TARGET_mxs +kmod-usb2 +USB_GADGET_SUPPORT:kmod-usb-gadget
   KCONFIG:=\
 	CONFIG_USB_CHIPIDEA \
 	CONFIG_USB_CHIPIDEA_HOST=y \
@@ -1407,12 +1424,12 @@ else
 endif
   $(call AddDepends/usb)
 endef
-  
-define KernelPackage/usb-chipidea/description
+
+define KernelPackage/usb-chipidea-imx/description
  Kernel support for USB ChipIdea controllers
 endef
 
-$(eval $(call KernelPackage,usb-chipidea,1))
+$(eval $(call KernelPackage,usb-chipidea-imx,1))
 
 
 define KernelPackage/usb-mxs-phy
@@ -1446,16 +1463,20 @@ endef
 
 $(eval $(call KernelPackage,usbmon))
 
+XHCI_FILES := $(wildcard $(patsubst %,$(LINUX_DIR)/drivers/usb/host/%.ko,xhci-hcd xhci-pci xhci-plat))
+XHCI_AUTOLOAD := $(patsubst $(LINUX_DIR)/drivers/usb/host/%.ko,%,$(XHCI_FILES))
 
 define KernelPackage/usb3
   TITLE:=Support for USB3 controllers
   DEPENDS:=+TARGET_omap:kmod-usb-phy-omap-usb3
   KCONFIG:= \
 	CONFIG_USB_XHCI_HCD \
+	CONFIG_USB_XHCI_PCI \
+	CONFIG_USB_XHCI_PLATFORM \
 	CONFIG_USB_XHCI_HCD_DEBUGGING=n
   FILES:= \
-	$(LINUX_DIR)/drivers/usb/host/xhci-hcd.ko
-  AUTOLOAD:=$(call AutoLoad,54,xhci-hcd,1)
+	$(XHCI_FILES)
+  AUTOLOAD:=$(call AutoLoad,54,$(XHCI_AUTOLOAD),1)
   $(call AddDepends/usb)
 endef
 

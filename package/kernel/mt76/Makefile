@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mt76
-PKG_VERSION:=2014-11-20
+PKG_VERSION:=2014-12-10
 PKG_RELEASE=1
 
 PKG_LICENSE:=GPLv2
@@ -10,7 +10,7 @@ PKG_LICENSE_FILES:=
 PKG_SOURCE_URL:=https://github.com/openwrt/mt76
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=9e7049b1d11c67b77450b0ac748496905ac40b33
+PKG_SOURCE_VERSION:=83d0a1a12a9055569cde5786d1304c83d2d9bc0a
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.xz
 
 PKG_MAINTAINER:=Felix Fietkau <nbd@openwrt.org>
@@ -22,7 +22,7 @@ include $(INCLUDE_DIR)/package.mk
 define KernelPackage/mt76
   SUBMENU:=Wireless Drivers
   TITLE:=MediaTek MT76x2 wireless driver
-  DEPENDS:=+kmod-mac80211 +@DRIVER_11N_SUPPORT
+  DEPENDS:=+kmod-mac80211 +@DRIVER_11N_SUPPORT @PCI_SUPPORT
   FILES:=$(PKG_BUILD_DIR)/mt76pci.ko
   AUTOLOAD:=$(call AutoLoad,50,mac80211 mt76pci)
 endef
