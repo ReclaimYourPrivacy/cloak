@@ -182,6 +182,7 @@ platform_check_image() {
 	ap135-020 | \
 	ap96 | \
 	db120 | \
+	f9k1115v2 |\
 	hornet-ub | \
 	bxu2000n-2-a1 | \
 	zcn-1523h-2 | \
