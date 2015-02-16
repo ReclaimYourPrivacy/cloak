@@ -9,7 +9,7 @@ get_status_led() {
 	3g-6200n)
 		status_led="edimax:green:power"
 		;;
-	3g300m | w150m)
+	3g150b | 3g300m | w150m)
 		status_led="tenda:blue:ap"
 		;;
 	ai-br100)
@@ -79,14 +79,18 @@ get_status_led() {
 	hw550-3g)
 		status_led="hw550-3g:green:status"
 		;;
+	m2m)
+		status_led="m2m:blue:wifi"
+		;;
 	m3)
 		status_led="m3:blue:status"
 		;;
 	m4)
 		status_led="m4:blue:status"
 		;;
-	mlw221)
-		status_led="kingston:blue:status"
+	mlw221|\
+	mlwg2)
+		status_led="kingston:blue:system"
 		;;
 	mofi3500-3gn)
 		status_led="mofi3500-3gn:green:status"
@@ -203,6 +207,9 @@ get_status_led() {
 		;;
 	xdxrn502j)
 		status_led="xdxrn502j:green:power"
+		;;
+	xiaomi-mini)
+		status_led="xiaomi:red:status"
 		;;
 	f7c027)
 		status_led="belkin:orange:status"
