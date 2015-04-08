@@ -146,7 +146,8 @@ get_status_led() {
 	om2p-lc)
 		status_led="om2p:blue:power"
 		;;
-	om5p)
+	om5p | \
+	om5p-an)
 		status_led="om5p:blue:power"
 		;;
 	pb44)
@@ -164,6 +165,7 @@ get_status_led() {
 		status_led="rb750:green:act"
 		;;
 	rb-911g-2hpnd|\
+	rb-911g-5hpacd|\
 	rb-911g-5hpnd|\
 	rb-912uag-2hpnd|\
 	rb-912uag-5hpnd)
